@@ -1,8 +1,23 @@
 const fs = require('fs');
-const file = fs.createWriteStream('./big.file');
+const file = fs.createWriteStream('./bigData.json');
 
-for(let i=0; i<= 1e6; i++) {
-  file.write('Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n');
+file.write('[\n')
+for (let i = 0; i <= 1e5; i++) {
+  let airport = ''
+  for (let index = 0; index < 3; index++) {
+    airport += String.fromCharCode(Math.floor((Math.random() * 25) + 97))
+  }
+  airport = airport.toUpperCase()
+  const date = new Date().getDate().toString().padStart(2, '0')
+  const hour = new Date().getHours().toString().padStart(2, '0')
+  const minutes = new Date().getMinutes().toString().padStart(2, '0')
+  const direction = Math.floor((Math.random() * 360)).toString().padStart(3, '0')
+  const windSpeed = Math.floor(Math.random() * 150)
+  const gusts = Date.now() % 2 ? `G${Math.floor(Math.random() * 89) + 10}` : ''
+  const units = Date.now() % 2 ? 'MPS' : 'KT'
+    
+  file.write(`"${airport} ${date}${hour}${minutes}Z ${direction}${windSpeed}${gusts}${units}",\n`);
 }
+file.write('\n]')
 
 file.end();
