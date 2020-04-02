@@ -1,0 +1,14 @@
+{
+  "name": "metar-o-matic",
+  "version": "1.0.0",
+  "description": "parses metar strings",
+  "main": "metar.js",
+  "bin": {
+    "metar": "bin/metar"
+  },
+  "author": "Jon Barson",
+  "license": "MIT",
+  "dependencies": {
+    "esm": "^3.2.25"
+  }
+}
